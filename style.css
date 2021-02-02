@@ -30,10 +30,15 @@ select {
     outline: 0;
 }
 
+
+
 .settings__btn {
     position: absolute;
     bottom: 30px;
     left: 30px;
+    border: none;
+    background-color: tomato;
+    color: black;
 }
 
 .settings {
@@ -64,6 +69,16 @@ select {
     box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
     color: white;
     width: 450px;
+}
+
+#reload {
+    outline: 0;
+    margin-top: 2rem;
+    background-color: tomato;
+    border: none;
+    padding: 1rem;
+    font-weight: bold;
+    font-size: 1.5rem;
 }
 
 h2 {
@@ -99,6 +114,7 @@ input {
 
 .game__over__container {
     position: absolute;
+    display: flex;
     background-color: inherit;
     visibility: hidden;
     align-items: center;
@@ -111,6 +127,9 @@ input {
     z-index: 9999;
 }
 
+.game__over__container h1 {
+    color: tomato;
+}
 
 
 
