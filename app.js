@@ -6,7 +6,7 @@ const timeEl = document.getElementById('time');
 const gameOverEl = document.getElementById('game__over__container');
 const settingsBtnEl = document.getElementById('settings__btn');
 const settingsEl = document.getElementById('settings');
-const settingsForm = document.getElementById('settings__form');
+const settingsFormEl = document.getElementById('settings__form');
 const difficultySelectEl = document.getElementById('difficulty');
 
 // list of random words for the game
@@ -18,36 +18,41 @@ let randomWord;
 let score = 0;
 let time = 10;
 
+let difficulty = localStorage.getItem('difficulty') !== null ? localStorage.getItem('difficulty') : 'medium';
+
+difficultySelectEl.value = difficulty;
+
+
 textEl.focus();
 
 const timeInterval = setInterval(updateTime, 1000);
 
 
-function updateTime(){
+function updateTime() {
     time--;
     timeEl.innerHTML = time + 's';
 
-    if( time === 0){
+    if (time === 0) {
         clearInterval(timeInterval);
         gameOver();
     }
 }
 
-function getRandomWord(){
+function getRandomWord() {
     return words[Math.floor(Math.random() * words.length)];
 }
 
-function addWordToDOM(){
+function addWordToDOM() {
     randomWord = getRandomWord();
     wordEl.innerHTML = randomWord;
 }
 
-function updateScore(){
+function updateScore() {
     score++;
     scoreEl.innerHTML = score;
 }
 
-function gameOver(){
+function gameOver() {
     gameOverEl.innerHTML = `
         <h1>Time ran out</h1>
         <p>Your final score is ${score}</p>
@@ -64,36 +69,25 @@ textEl.addEventListener('input', e => {
         addWordToDOM();
         updateScore();
 
-        time += 5;
-        e.target.value = '';
+        if (difficulty == 'hard') {
+            time += 2;
+        } else if (difficulty === 'medium') {
+            time += 3;
+        } else {
+            time += 5;
+        }
 
+        e.target.value = '';
         updateTime();
     } else {
-        
+
     }
 });
 
+
+settingsBtnEl.addEventListener('click', () => settingsEl.classList.toggle('hide'));
+settingsFormEl.addEventListener('change', e => {
+    difficulty = e.target.value;
+    localStorage.setItem('difficulty', difficulty);
+});
 addWordToDOM();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
